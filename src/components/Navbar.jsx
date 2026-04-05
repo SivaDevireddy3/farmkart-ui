@@ -64,9 +64,8 @@ export default function Navbar({ cartCount }) {
           box-shadow: 0 4px 24px rgba(0,0,0,0.08);
         }
         .navbar-inner {
-          max-width: 1280px;
-          margin: 0 auto;
-          padding: 0 24px;
+          width: 100%;
+          padding: 0 32px;
           height: 64px;
           display: flex;
           align-items: center;
@@ -412,7 +411,7 @@ export default function Navbar({ cartCount }) {
           color: white;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 800px) {
           .nav-links { display: none; }
           .nav-hamburger { display: flex; }
           .nav-mobile-cart { display: flex; align-items: center; }
@@ -430,7 +429,7 @@ export default function Navbar({ cartCount }) {
           {/* Logo */}
           <Link to={isSuperAdmin ? '/super-admin' : isSeller ? '/seller/dashboard' : '/'} className="nav-logo">
             <span className="nav-logo-emoji">🥭</span>
-            <span className="nav-logo-text">Mango<span>Mart</span></span>
+            <span className="nav-logo-text">Farm<span>Kart</span></span>
             {isSeller && <span className="nav-zone-badge seller">Seller</span>}
             {isSuperAdmin && <span className="nav-zone-badge superadmin">Super Admin</span>}
           </Link>

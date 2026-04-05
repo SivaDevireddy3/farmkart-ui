@@ -11,6 +11,10 @@ export function AuthProvider({ children }) {
   })
 
   const login = (data, role) => {
+    // For CUSTOMER, backend returns customerId/name but not mobile.
+    // We preserve the mobile from the login form by merging it in
+    // via the UserLogin page passing it in data. As a safety net,
+    // also store whatever the backend returns.
     const u = { ...data, role }
     setUser(u)
     localStorage.setItem('authUser', JSON.stringify(u))

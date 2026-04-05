@@ -105,7 +105,7 @@ export default function Checkout({ cart, clearCart }) {
           gap: 14px;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 800px) {
           .checkout-layout {
             grid-template-columns: 1fr;
           }

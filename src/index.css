@@ -225,11 +225,10 @@ textarea::placeholder {
    IMPORTANT: flex:1 so page fills remaining height
 ───────────────────────────────────────────── */
 .page {
-  max-width: 1200px;
   margin: 0 auto;
   padding: 24px 20px 60px;
   width: 100%;
-  flex: 1; /* takes up remaining space after sticky navbar */
+  flex: 1;
 }
 .section-title {
   font-size: 28px;

@@ -83,9 +83,8 @@ export default function Home({ addToCart, cart, clearCart }) {
     <>
       <style>{`
         .home-page {
-          max-width: 1280px;
-          margin: 0 auto;
-          padding: 24px 24px 60px;
+          width: 100%;
+          padding: 24px 32px 60px;
         }
 
         /* ── Hero ── */
@@ -453,6 +452,7 @@ export default function Home({ addToCart, cart, clearCart }) {
 
         /* ── Responsive ── */
         @media (max-width: 1024px) {
+          .home-page { padding: 20px 24px 56px; }
           .hero { padding: 40px 36px; }
         }
         @media (max-width: 768px) {

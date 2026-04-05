@@ -30,7 +30,7 @@ export default function UserLogin() {
       } else {
         res = await authAPI.customerRegister({ ...form })
       }
-      login(res.data, 'CUSTOMER')
+      login({ ...res.data, mobile: form.mobile }, 'CUSTOMER')
       toast.success(tab === 'login' ? `Welcome back! 🥭` : `Account created! Welcome 🥭`)
       navigate(from, { replace: true })
     } catch (err) {
