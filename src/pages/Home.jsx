@@ -500,7 +500,7 @@ export default function Home({ addToCart, cart, clearCart }) {
           <div className="hero-content">
             <p className="hero-eyebrow">🌿 Fresh from the Farm</p>
             <h1 className="hero-title">
-              India's Finest<br />
+              Finest<br />
               <em>Mangoes</em> 🥭
             </h1>
             <p className="hero-sub">
@@ -765,12 +765,21 @@ export default function Home({ addToCart, cart, clearCart }) {
             mango={ratingMango}
             reviewerName={isCustomer ? user?.name : ''}
             reviewerPhone={isCustomer ? user?.mobile : ''}
-            onClose={() => {
+            onClose={(updatedRating) => {
+              // If backend returned updated rating data, update the mango in state immediately
+              if (updatedRating?.avgRating !== undefined) {
+                setMangoes(prev => prev.map(m =>
+                  m.id === ratingMango.id
+                    ? { ...m, avgRating: updatedRating.avgRating, reviewCount: updatedRating.reviewCount }
+                    : m
+                ))
+              } else {
+                // Fallback: full refresh
+                const params = { category: selectedCat, search }
+                if (selectedSeller) params.sellerId = selectedSeller.id
+                mangoAPI.getAll(params).then(r => setMangoes(r.data)).catch(() => { })
+              }
               setRatingMango(null)
-              // Refresh mangoes to update rating count
-              const params = { category: selectedCat, search }
-              if (selectedSeller) params.sellerId = selectedSeller.id
-              mangoAPI.getAll(params).then(r => setMangoes(r.data)).catch(() => { })
             }}
           />
         )}

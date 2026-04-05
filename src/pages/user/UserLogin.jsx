@@ -74,7 +74,7 @@ export default function UserLogin() {
           {tab === 'register' && (
             <div>
               <label style={{ fontSize: 13, fontWeight: 600, marginBottom: 6, display: 'block' }}>Full Name</label>
-              <input value={form.name} onChange={e => f('name', e.target.value)} placeholder="Ravi Kumar" />
+              <input value={form.name} onChange={e => f('name', e.target.value)} placeholder="Enter Name" />
             </div>
           )}
 
@@ -87,7 +87,7 @@ export default function UserLogin() {
               value={form.mobile}
               maxLength={10}
               onChange={e => f('mobile', e.target.value.replace(/\D/g, ''))}
-              placeholder="9876543210"
+              placeholder="Enter Mobile Number"
               inputMode="numeric"
             />
           </div>
@@ -119,7 +119,7 @@ export default function UserLogin() {
               <label style={{ fontSize: 13, fontWeight: 600, marginBottom: 6, display: 'block' }}>
                 Email <span style={{ color: '#a8a29e', fontWeight: 400 }}>(Optional)</span>
               </label>
-              <input type="email" value={form.email} onChange={e => f('email', e.target.value)} placeholder="ravi@email.com" />
+              <input type="email" value={form.email} onChange={e => f('email', e.target.value)} placeholder="Enter Mail" />
             </div>
           )}
 

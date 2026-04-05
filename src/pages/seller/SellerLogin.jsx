@@ -50,7 +50,7 @@ export default function SellerLogin() {
               value={form.mobile}
               maxLength={10}
               onChange={e => setForm({ ...form, mobile: e.target.value.replace(/\D/g, '') })}
-              placeholder="9876543210"
+              placeholder="Enter Mobile Number"
             />
           </div>
           <div>

@@ -1,5 +1,6 @@
 import { useNavigate, Link } from 'react-router-dom'
 import { Trash2, Plus, Minus, ArrowRight } from 'lucide-react'
+import { imageUrl as buildImgUrl } from '../api'
 
 export default function Cart({ cart, updateCart }) {
   const total = cart.reduce((s, i) => s + i.price * i.qty, 0)
@@ -67,8 +68,8 @@ export default function Cart({ cart, updateCart }) {
             <div key={item.id} className="card" style={{ overflow: 'hidden', padding: 0 }}>
               <div className="cart-item">
                 <div className="cart-item-img" style={{ background: '#fef3c7', borderRadius: 12, overflow: 'hidden' }}>
-                  {item.imageUrl
-                    ? <img src={item.imageUrl?.startsWith('http') ? item.imageUrl : `${import.meta.env.VITE_API_URL}${item.imageUrl}`} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  {buildImgUrl(item.imageUrl)
+                    ? <img src={buildImgUrl(item.imageUrl)} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     : <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 28 }}>🥭</div>
                   }
                 </div>

@@ -1,10 +1,16 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { imageUrl as buildImgUrl } from '../api'
 import { ShoppingCart, Star, MapPin, Store, AlertCircle } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 export default function MangoCard({ mango, addToCart, onRateClick }) {
   const [added, setAdded] = useState(false)
   const [imgError, setImgError] = useState(false)
+
+  // Reset error state when imageUrl changes (e.g. list re-renders with different mango)
+  useEffect(() => {
+    setImgError(false)
+  }, [mango.imageUrl])
 
   const isOutOfStock = !mango.isAvailable || mango.stock === 0
   const isLowStock = mango.stock > 0 && mango.stock <= 5 && mango.isAvailable
@@ -18,11 +24,7 @@ export default function MangoCard({ mango, addToCart, onRateClick }) {
   }
 
   // Build correct image src — handle relative /uploads/ paths and absolute URLs
-  const imgSrc = mango.imageUrl
-    ? mango.imageUrl.startsWith('http')
-      ? mango.imageUrl
-      : `${import.meta.env.VITE_API_URL}${mango.imageUrl}`
-    : null
+  const imgSrc = buildImgUrl(mango.imageUrl)
 
   const avgRating = Number(mango.avgRating) || 0
   const reviewCount = mango.reviewCount || 0

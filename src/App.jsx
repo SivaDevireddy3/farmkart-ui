@@ -21,6 +21,7 @@ import Contact from './pages/Contact'
 
 // User auth
 import UserLogin from './pages/user/UserLogin'
+import MyOrders from './pages/user/MyOrders'
 
 // Seller pages
 import SellerLogin from './pages/seller/SellerLogin'
@@ -35,6 +36,7 @@ import AdminMangoes from './pages/admin/AdminMangoes'
 import AdminOrders from './pages/admin/AdminOrders'
 import SuperAdminDashboard from './pages/superadmin/SuperAdminDashboard'
 import SuperAdminSellers from './pages/superadmin/SuperAdminSellers'
+import SellerViewDashboard from './pages/superadmin/SellerViewDashboard'
 
 export default function App() {
   const [cart, setCart] = useState(() => {
@@ -80,6 +82,7 @@ export default function App() {
 
         {/* ── User auth ── */}
         <Route path="/user/login" element={<UserLogin />} />
+        <Route path="/my-orders" element={<MyOrders />} />
 
         {/* ── Seller ── */}
         <Route path="/seller/login" element={<SellerLogin />} />
@@ -100,6 +103,9 @@ export default function App() {
         } />
         <Route path="/super-admin/sellers" element={
           <SuperAdminRoute><SuperAdminSellers /></SuperAdminRoute>
+        } />
+        <Route path="/seller-view/:id" element={
+          <SuperAdminRoute><SellerViewDashboard /></SuperAdminRoute>
         } />
 
         {/* ── Legacy Admin routes (kept for backward compat) ── */}

@@ -42,7 +42,7 @@ export default function AdminLogin() {
       <div className="card" style={{ padding: 'clamp(24px, 5vw, 40px)', width: '100%', maxWidth: 420 }}>
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
           <div style={{ fontSize: 56 }}>🛡️</div>
-          <h1 style={{ fontFamily: 'Playfair Display', fontSize: 28, marginTop: 12 }}>Super Admin</h1>
+          <h1 style={{ fontFamily: 'Playfair Display', fontSize: 28, marginTop: 12 }}>Admin</h1>
           <p style={{ color: '#78716c', marginTop: 6 }}>MangoMart Management</p>
         </div>
 
@@ -82,11 +82,11 @@ export default function AdminLogin() {
           </button>
         </form>
 
-        <div style={{ marginTop: 20, padding: '12px 14px', background: '#fafaf9', borderRadius: 10, fontSize: 12, color: '#78716c' }}>
+        {/* <div style={{ marginTop: 20, padding: '12px 14px', background: '#fafaf9', borderRadius: 10, fontSize: 12, color: '#78716c' }}>
           <p style={{ fontWeight: 600, marginBottom: 4 }}>Default Credentials</p>
           <p>Username: <strong>admin</strong></p>
           <p>Password: <strong>admin@mango2024</strong></p>
-        </div>
+        </div> */}
 
         <div style={{ textAlign: 'center', marginTop: 16, fontSize: 13 }}>
           <Link to="/seller/login" style={{ color: '#78716c', marginRight: 12 }}>Seller Login</Link>

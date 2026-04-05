@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { mangoAPI } from '../../api'
+import { mangoAPI, imageUrl as buildImgUrl } from '../../api'
 import toast from 'react-hot-toast'
 import { Plus, Edit2, Trash2, ToggleLeft, ToggleRight, X } from 'lucide-react'
 
@@ -25,7 +25,7 @@ export default function AdminMangoes() {
 
   const openEdit = (m) => {
     setForm({ name: m.name, category: m.category, description: m.description || '', price: m.price, stock: m.stock, unit: m.unit, origin: m.origin || '', weightPerUnit: m.weightPerUnit || '', isAvailable: m.isAvailable })
-    setEditId(m.id); setPreview(`${import.meta.env.VITE_API_URL}${m.imageUrl}`); setShowForm(true)
+    setEditId(m.id); setPreview(buildImgUrl(m.imageUrl)); setShowForm(true)
   }
 
   const handleSubmit = async (e) => {
@@ -157,7 +157,7 @@ export default function AdminMangoes() {
                 <tr key={m.id} style={{ borderBottom: '1px solid #f5f5f4' }}>
                   <td style={{ padding: '12px 14px' }}>
                     <div style={{ width: 44, height: 44, borderRadius: 10, background: '#fef3c7', overflow: 'hidden' }}>
-                      {`${import.meta.env.VITE_API_URL}${m.imageUrl}` ? <img src={`${import.meta.env.VITE_API_URL}${m.imageUrl}`} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      {buildImgUrl(m.imageUrl) ? <img src={buildImgUrl(m.imageUrl)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                         : <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 22 }}>🥭</div>}
                     </div>
                   </td>

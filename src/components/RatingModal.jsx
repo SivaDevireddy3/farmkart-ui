@@ -15,9 +15,13 @@ export default function RatingModal({ mango, onClose, reviewerName = '', reviewe
     if (!rating) return toast.error('Please select a star rating')
     setLoading(true)
     try {
-      await reviewAPI.submit({ mangoId: mango.id, rating, comment, reviewerName: name, reviewerPhone: phone })
+      const res = await reviewAPI.submit({ mangoId: mango.id, rating, comment, reviewerName: name, reviewerPhone: phone })
       toast.success('Thanks for your review! ⭐')
-      onClose()
+      // Pass updated rating data back to parent so UI refreshes immediately
+      onClose({
+        avgRating: res.data.avgRating,
+        reviewCount: res.data.reviewCount
+      })
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to submit review')
     } finally { setLoading(false) }
@@ -94,7 +98,7 @@ export default function RatingModal({ mango, onClose, reviewerName = '', reviewe
         </button>
 
         <p style={{ textAlign: 'center', fontSize: 12, color: '#a8a29e', marginTop: 10 }}>
-          Your review will appear after approval
+          Your review will be published immediately
         </p>
       </div>
     </div>

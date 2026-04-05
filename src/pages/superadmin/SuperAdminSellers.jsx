@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { sellerAPI } from '../../api'
 import toast from 'react-hot-toast'
 import { Plus, ToggleLeft, ToggleRight, RefreshCw, Eye } from 'lucide-react'
 
 export default function SuperAdminSellers() {
+  const navigate = useNavigate()
   const [sellers, setSellers] = useState([])
   const [showForm, setShowForm] = useState(false)
   const [showPasswordModal, setShowPasswordModal] = useState(null)
@@ -12,12 +14,31 @@ export default function SuperAdminSellers() {
     whatsapp: '', city: '', storeDescription: ''
   })
   const [loading, setLoading] = useState(false)
+  const [mobileError, setMobileError] = useState('')
+  const [whatsappError, setWhatsappError] = useState('')
 
   const load = () => sellerAPI.getAll().then(r => setSellers(r.data))
   useEffect(() => { load() }, [])
 
+  const validateMobile = (val) => {
+    if (!val) return 'Mobile number is required'
+    if (!/^[6-9]\d{9}$/.test(val)) return 'Enter a valid 10-digit Indian mobile number (starts with 6-9)'
+    return ''
+  }
+
+  const validateWhatsapp = (val) => {
+    if (val && !/^[6-9]\d{9}$/.test(val)) return 'Enter a valid 10-digit WhatsApp number'
+    return ''
+  }
+
   const handleCreate = async (e) => {
     e.preventDefault()
+    const mobErr = validateMobile(form.mobile)
+    const waErr = validateWhatsapp(form.whatsapp)
+    setMobileError(mobErr)
+    setWhatsappError(waErr)
+    if (mobErr || waErr) return
+
     setLoading(true)
     try {
       const res = await sellerAPI.create(form)
@@ -29,6 +50,8 @@ export default function SuperAdminSellers() {
       })
       setShowForm(false)
       setForm({ mobile: '', storeName: '', ownerName: '', email: '', whatsapp: '', city: '', storeDescription: '' })
+      setMobileError('')
+      setWhatsappError('')
       load()
     } catch (err) {
       toast.error(err.response?.data?.message || 'Error creating seller')
@@ -85,11 +108,13 @@ export default function SuperAdminSellers() {
               })} className="btn btn-outline" style={{ padding: '6px 12px', fontSize: 12 }}>
                 🔑 Reset Pass
               </button>
-              <a href={`/seller-view/${s.id}`} target="_blank" rel="noreferrer">
-                <button className="btn btn-outline" style={{ padding: '6px 12px', fontSize: 12 }}>
-                  <Eye size={14} /> View Dashboard
-                </button>
-              </a>
+              <button
+                className="btn btn-outline"
+                style={{ padding: '6px 12px', fontSize: 12 }}
+                onClick={() => navigate(`/seller-view/${s.id}`)}
+              >
+                <Eye size={14} /> View Dashboard
+              </button>
             </div>
           </div>
         ))}
@@ -111,17 +136,25 @@ export default function SuperAdminSellers() {
                 <div>
                   <label style={{ fontSize: 13, fontWeight: 600, display: 'block', marginBottom: 6 }}>Mobile * (login ID)</label>
                   <input required value={form.mobile} maxLength={10}
-                    onChange={e => setForm({ ...form, mobile: e.target.value.replace(/\D/g, '') })}
-                    placeholder="9876543210" />
+                    onChange={e => {
+                      const val = e.target.value.replace(/\D/g, '')
+                      setForm({ ...form, mobile: val })
+                      setMobileError(validateMobile(val))
+                    }}
+                    onBlur={() => setMobileError(validateMobile(form.mobile))}
+                    placeholder="Enter Mobile Number"
+                    style={{ borderColor: mobileError ? '#dc2626' : undefined }}
+                  />
+                  {mobileError && <p style={{ color: '#dc2626', fontSize: 11, marginTop: 4, fontFamily: 'DM Sans' }}>{mobileError}</p>}
                 </div>
                 <div>
                   <label style={{ fontSize: 13, fontWeight: 600, display: 'block', marginBottom: 6 }}>Store Name *</label>
                   <input required value={form.storeName}
-                    onChange={e => setForm({ ...form, storeName: e.target.value })} placeholder="Ravi Mango Store" />
+                    onChange={e => setForm({ ...form, storeName: e.target.value })} placeholder="Enter Store Name" />
                 </div>
                 <div>
                   <label style={{ fontSize: 13, fontWeight: 600, display: 'block', marginBottom: 6 }}>Owner Name</label>
-                  <input value={form.ownerName} onChange={e => setForm({ ...form, ownerName: e.target.value })} placeholder="Ravi Kumar" />
+                  <input value={form.ownerName} onChange={e => setForm({ ...form, ownerName: e.target.value })} placeholder="Enter Name" />
                 </div>
                 <div>
                   <label style={{ fontSize: 13, fontWeight: 600, display: 'block', marginBottom: 6 }}>City</label>
@@ -129,11 +162,21 @@ export default function SuperAdminSellers() {
                 </div>
                 <div>
                   <label style={{ fontSize: 13, fontWeight: 600, display: 'block', marginBottom: 6 }}>Email</label>
-                  <input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder="ravi@store.com" />
+                  <input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder="Enter Email" />
                 </div>
                 <div>
                   <label style={{ fontSize: 13, fontWeight: 600, display: 'block', marginBottom: 6 }}>WhatsApp</label>
-                  <input value={form.whatsapp} onChange={e => setForm({ ...form, whatsapp: e.target.value })} placeholder="9876543210" />
+                  <input value={form.whatsapp} maxLength={10}
+                    onChange={e => {
+                      const val = e.target.value.replace(/\D/g, '')
+                      setForm({ ...form, whatsapp: val })
+                      setWhatsappError(validateWhatsapp(val))
+                    }}
+                    onBlur={() => setWhatsappError(validateWhatsapp(form.whatsapp))}
+                    placeholder="10-digit WhatsApp number"
+                    style={{ borderColor: whatsappError ? '#dc2626' : undefined }}
+                  />
+                  {whatsappError && <p style={{ color: '#dc2626', fontSize: 11, marginTop: 4, fontFamily: 'DM Sans' }}>{whatsappError}</p>}
                 </div>
               </div>
               <div>

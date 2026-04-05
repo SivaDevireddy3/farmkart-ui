@@ -3,6 +3,28 @@ import axios from 'axios'
 const BASE = import.meta.env.VITE_API_URL
 
 /**
+ * Base URL for static file serving (images, uploads).
+ * VITE_API_URL ends with /api (e.g. http://localhost:8080/api)
+ * but imageUrl from backend is /uploads/mangoes/xxx.jpg
+ * so we must strip the /api suffix to get the server root.
+ */
+export const STATIC_BASE = BASE.endsWith('/api')
+  ? BASE.slice(0, -4)
+  : BASE
+
+/**
+ * Build the full URL for a mango image.
+ * Handles absolute URLs, relative /uploads paths, and null values.
+ */
+export const imageUrl = (path) => {
+  if (!path || path.trim() === '') return null
+  if (path.startsWith('http://') || path.startsWith('https://')) return path
+  // Ensure path starts with /
+  const normalized = path.startsWith('/') ? path : `/${path}`
+  return `${STATIC_BASE}${normalized}`
+}
+
+/**
  * Returns the most-appropriate token for the current user's role.
  * Priority: super admin → seller → customer.
  * Having a stale token from a previous session can cause 403s, so the

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { mangoAPI } from '../../api'
+import { mangoAPI, imageUrl as buildImgUrl } from '../../api'
 import { useAuth } from '../../context/AuthContext'
 import toast from 'react-hot-toast'
 import { Plus, Edit2, Trash2, ToggleLeft, ToggleRight, X, ArrowLeft } from 'lucide-react'
@@ -56,9 +56,7 @@ export default function SellerMangoes() {
       origin: m.origin || '', weightPerUnit: m.weightPerUnit || '', isAvailable: m.isAvailable,
     })
     setEditId(m.id)
-    setPreview(m.imageUrl
-      ? (m.imageUrl.startsWith('http') ? m.imageUrl : `${import.meta.env.VITE_API_URL}${m.imageUrl}`)
-      : null)
+    setPreview(buildImgUrl(m.imageUrl))
     setShowForm(true)
   }
 
@@ -298,9 +296,7 @@ export default function SellerMangoes() {
               </thead>
               <tbody>
                 {mangoes.map(m => {
-                  const imgSrc = m.imageUrl
-                    ? (m.imageUrl.startsWith('http') ? m.imageUrl : `${import.meta.env.VITE_API_URL}${m.imageUrl}`)
-                    : null
+                  const imgSrc = buildImgUrl(m.imageUrl)
                   return (
                     <tr key={m.id}
                       onMouseEnter={e => e.currentTarget.style.background = '#fafaf9'}

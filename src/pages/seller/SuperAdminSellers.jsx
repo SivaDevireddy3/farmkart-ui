@@ -238,18 +238,18 @@ export default function SuperAdminSellers() {
                     maxLength={10}
                     disabled={!!editSeller}
                     onChange={e => f('mobile', e.target.value.replace(/\D/g, ''))}
-                    placeholder="9876543210"
+                    placeholder="Enter Mobile Number"
                     style={editSeller ? { background: '#f5f5f4', color: '#a8a29e' } : {}}
                   />
                   {editSeller && <p style={{ fontSize: 11, color: '#a8a29e', marginTop: 4 }}>Mobile cannot be changed</p>}
                 </div>
                 <div>
                   <label style={L}>Store Name *</label>
-                  <input required value={form.storeName} onChange={e => f('storeName', e.target.value)} placeholder="Ravi Mango Store" />
+                  <input required value={form.storeName} onChange={e => f('storeName', e.target.value)} placeholder="Enter Store Name" />
                 </div>
                 <div>
                   <label style={L}>Owner Name</label>
-                  <input value={form.ownerName} onChange={e => f('ownerName', e.target.value)} placeholder="Ravi Kumar" />
+                  <input value={form.ownerName} onChange={e => f('ownerName', e.target.value)} placeholder="Enter Name" />
                 </div>
                 <div>
                   <label style={L}>City</label>
@@ -257,11 +257,11 @@ export default function SuperAdminSellers() {
                 </div>
                 <div>
                   <label style={L}>Email</label>
-                  <input type="email" value={form.email} onChange={e => f('email', e.target.value)} placeholder="ravi@store.com" />
+                  <input type="email" value={form.email} onChange={e => f('email', e.target.value)} placeholder="Enter Email" />
                 </div>
                 <div>
                   <label style={L}>WhatsApp</label>
-                  <input value={form.whatsapp} onChange={e => f('whatsapp', e.target.value.replace(/\D/g, ''))} placeholder="9876543210" maxLength={10} />
+                  <input value={form.whatsapp} onChange={e => f('whatsapp', e.target.value.replace(/\D/g, ''))} placeholder="Enter Mobile Number" maxLength={10} />
                 </div>
               </div>
 

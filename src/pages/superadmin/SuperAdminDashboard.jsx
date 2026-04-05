@@ -52,9 +52,9 @@ export default function SuperAdminDashboard() {
       {/* Header */}
       <div className="sa-header">
         <div>
-          <h1 className="section-title">Super Admin 🛡️</h1>
+          <h1 className="section-title">Admin 🛡️</h1>
           <p style={{ color: '#78716c', fontSize: 13 }}>
-            Welcome, {user?.username || 'Admin'} · Last updated {lastRefresh.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true })}
+            Welcome {user?.username || 'Admin'} · Last updated {lastRefresh.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true })}
           </p>
         </div>
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>

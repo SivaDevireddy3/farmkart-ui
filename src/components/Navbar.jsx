@@ -65,6 +65,8 @@ export default function Navbar({ cartCount }) {
         }
         .navbar-inner {
           width: 100%;
+          max-width: 1400px;
+          margin: 0 auto;
           padding: 0 32px;
           height: 64px;
           display: flex;
@@ -431,7 +433,7 @@ export default function Navbar({ cartCount }) {
             <span className="nav-logo-emoji">🥭</span>
             <span className="nav-logo-text">Farm<span>Kart</span></span>
             {isSeller && <span className="nav-zone-badge seller">Seller</span>}
-            {isSuperAdmin && <span className="nav-zone-badge superadmin">Super Admin</span>}
+            {isSuperAdmin && <span className="nav-zone-badge superadmin">Admin</span>}
           </Link>
 
           {/* Desktop links */}
@@ -496,7 +498,7 @@ export default function Navbar({ cartCount }) {
                 {userDropOpen && (
                   <div className="nav-dropdown">
                     <div className="nav-dropdown-header">
-                      {isSuperAdmin ? 'Super Admin' : isSeller ? 'Seller Account' : 'My Account'}
+                      {isSuperAdmin ? 'Admin' : isSeller ? 'Seller Account' : 'My Account'}
                     </div>
                     <div style={{ padding: '2px 12px 8px', fontSize: 12, color: '#78716c' }}>
                       {isSeller ? user?.mobile : isCustomer ? user?.mobile : user?.username}

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { orderAPI } from '../api'
+import { orderAPI, imageUrl as buildImgUrl } from '../api'
 import toast from 'react-hot-toast'
 import { CreditCard, MapPin, User, Phone, Mail, FileText, ArrowLeft, ShoppingBag, IndianRupee, Banknote } from 'lucide-react'
 
@@ -105,7 +105,7 @@ export default function Checkout({ cart, clearCart }) {
           gap: 14px;
         }
 
-        @media (max-width: 800px) {
+        @media (max-width: 900px) {
           .checkout-layout {
             grid-template-columns: 1fr;
           }
@@ -156,7 +156,7 @@ export default function Checkout({ cart, clearCart }) {
                 <div>
                   <label style={labelStyle}>Full Name *</label>
                   <input value={form.customerName} onChange={e => set('customerName', e.target.value)}
-                    placeholder="Siva Devireddy" style={errors.customerName ? errorInputStyle : {}} />
+                    placeholder="Enter Name" style={errors.customerName ? errorInputStyle : {}} />
                   {errors.customerName && <p style={errorStyle}>{errors.customerName}</p>}
                 </div>
                 <div>
@@ -168,7 +168,7 @@ export default function Checkout({ cart, clearCart }) {
                 <div style={{ gridColumn: '1 / -1' }}>
                   <label style={labelStyle}><span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><Mail size={13} /> Email (Optional)</span></label>
                   <input type="email" value={form.customerEmail} onChange={e => set('customerEmail', e.target.value)}
-                    placeholder="siva@email.com" style={errors.customerEmail ? errorInputStyle : {}} />
+                    placeholder="Enter Mail" style={errors.customerEmail ? errorInputStyle : {}} />
                   {errors.customerEmail && <p style={errorStyle}>{errors.customerEmail}</p>}
                 </div>
               </div>
@@ -251,8 +251,8 @@ export default function Checkout({ cart, clearCart }) {
               {cart.map(item => (
                 <div key={item.id} style={{ display: 'flex', gap: 10, marginBottom: 12, alignItems: 'center' }}>
                   <div style={{ width: 40, height: 40, borderRadius: 8, background: '#fef3c7', overflow: 'hidden', flexShrink: 0 }}>
-                    {item.imageUrl
-                      ? <img src={item.imageUrl?.startsWith('http') ? item.imageUrl : `${import.meta.env.VITE_API_URL}${item.imageUrl}`} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    {buildImgUrl(item.imageUrl)
+                      ? <img src={buildImgUrl(item.imageUrl)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       : <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 20 }}>🥭</div>
                     }
                   </div>
